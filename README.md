@@ -26,3 +26,8 @@ To clone and install the repository:
 ```bash
 git clone https://github.com/your-username/QuantProjects.git
 cd QuantProjects
+
+## Roadmap
+- **Phase 1:** Build a pricing library for vanilla options (Black-Scholes, Greeks, implied vol).
+- **Phase 2:** Add Monte Carlo simulations for exotic options (Asian, barrier).
+- **Phase 3:** Create a Streamlit dashboard for interactive pricing and visualization.
