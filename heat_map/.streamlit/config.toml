@@ -1,0 +1,7 @@
+[theme]
+base = "dark"
+primaryColor = "#1E90FF"  # A nice blue for highlights
+backgroundColor = "#2F2F2F"  # Dark grey background
+secondaryBackgroundColor = "#3C3C3C"  # Slightly lighter grey for panels, etc.
+textColor = "#FFFFFF"  # White text for contrast
+font = "sans serif"
