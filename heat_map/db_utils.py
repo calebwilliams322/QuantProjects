@@ -3,8 +3,8 @@ import pandas as pd
 
 DB_NAME = "heat_map_db"
 DB_USER = "postgres"
-DB_PASSWORD = ""
-DB_HOST = "localhost"  # or your remote host
+DB_PASSWORD = "password"
+DB_HOST = "host.docker.internal"  # or your remote host
 DB_PORT = 5432         # default PostgreSQL port
 
 def init_db():
