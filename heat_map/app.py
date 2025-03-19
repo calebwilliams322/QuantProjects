@@ -2,6 +2,12 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 from black_scholes import black_scholes_prices  # Your pricing function
+from db_utils import (
+    init_db,
+    insert_black_scholes_input,
+    insert_black_scholes_output,
+    get_all_inputs
+)
 
 def compute_heatmap_data(s_range, v_range, k, r, q, t, purchase_call=None, purchase_put=None):
     """
@@ -79,6 +85,8 @@ def plot_heatmap(data, x_range, y_range, title, cmap='RdYlGn'):
 
 def main():
     st.title("Black-Scholes Price Sensitivity")
+
+    init_db()
 
     with st.expander("How to Use This Webpage"):
         st.markdown("""
@@ -183,6 +191,46 @@ def main():
         st.write("### Put Price Heatmap")
         fig_put = plot_heatmap(original_put, v_range, s_range, "Put Price", cmap='hot')
         st.pyplot(fig_put)
+
+    calc_id = insert_black_scholes_input(
+        stock_price=base_s,
+        strike_price=k,
+        interest_rate=r,
+        volatility=base_vol,
+        time_to_expiry=t
+    )
+
+    for i, s_val in enumerate(s_range):
+        for j, v_val in enumerate(v_range):
+            # Insert call row
+            insert_black_scholes_output(
+                calculation_id=calc_id,
+                volatility_shock=v_val,
+                stock_price_shock=s_val,
+                option_price=original_call[i, j],
+                is_call=True
+            )
+            # Insert put row
+            insert_black_scholes_output(
+                calculation_id=calc_id,
+                volatility_shock=v_val,
+                stock_price_shock=s_val,
+                option_price=original_put[i, j],
+                is_call=False
+            )
+
+    if st.button("Save BS Inputs to DB"):
+        calc_id = insert_black_scholes_input(
+        stock_price=base_s,
+        strike_price=k,
+        interest_rate=r,
+        volatility=base_vol,
+        time_to_expiry=t
+    )
+        
+    with st.expander("Show All Input Calculations"):
+        df_inputs = get_all_inputs()
+        st.dataframe(df_inputs)
     
     # ---- PNL HEATMAPS (Second Row) ----
     compute_pnl = st.sidebar.checkbox("Compute PnL (use purchase prices)", value=False)
