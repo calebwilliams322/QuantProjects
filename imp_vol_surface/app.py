@@ -1,14 +1,17 @@
 # app.py
+import requests
 import streamlit as st
 import yfinance as yf
 import pandas as pd
 import numpy as np
 from datetime import datetime
 from options_data import fetch_call_options
-from black_scholes import implied_volatility_call
 from build_iv_surface import compute_iv
 import plotly.graph_objects as go
 from scipy.interpolate import griddata
+
+session = requests.Session()
+session.headers.update({'User-Agent': 'Mozilla/5.0'})
 
 # App Title
 st.title("Interactive Implied Volatility Surface")
@@ -37,17 +40,22 @@ max_strike_pct = st.sidebar.number_input(
 if st.sidebar.button("Calculate Vol Surface"):
     with st.spinner('Fetching data and calculating volatility...'):
 
-        try:
-            ticker = yf.Ticker(ticker_symbol)
-            expirations = ticker.options
-            if not expirations:
-                st.error("No option data available for the provided ticker.")
-                st.stop()
-        except Exception as e:
-            st.error(f"Failed to fetch data for ticker {ticker_symbol}: {e}")
-            st.stop()
+        # try:
+        #     session = requests.Session()
+        #     session.headers.update({'User-Agent': 'Mozilla/5.0'})
+
+        #     ticker = yf.Ticker(ticker_symbol, session=session)
+        #     expirations = ticker.options
+        #     if not expirations:
+        #         st.error("No option data available for the provided ticker.")
+        #         st.stop()
+        # except Exception as e:
+        #     st.error(f"Failed to fetch data for ticker {ticker_symbol}: {e}")
+        #     st.stop()
+
+
         
-        ticker = yf.Ticker(ticker_symbol)
+        ticker = yf.Ticker(ticker_symbol, session=session)
         expirations = ticker.options
 
 
