@@ -36,6 +36,16 @@ max_strike_pct = st.sidebar.number_input(
 # Button to trigger calculation
 if st.sidebar.button("Calculate Vol Surface"):
     with st.spinner('Fetching data and calculating volatility...'):
+
+        try:
+            ticker = yf.Ticker(ticker_symbol)
+            expirations = ticker.options
+            if not expirations:
+                st.error("No option data available for the provided ticker.")
+                st.stop()
+        except Exception as e:
+            st.error(f"Failed to fetch data for ticker {ticker_symbol}: {e}")
+            st.stop()
         
         ticker = yf.Ticker(ticker_symbol)
         expirations = ticker.options
