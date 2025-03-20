@@ -4,7 +4,6 @@ import yfinance as yf
 from datetime import datetime
 from options_data import fetch_call_options
 from black_scholes import implied_volatility_call
-import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
 
