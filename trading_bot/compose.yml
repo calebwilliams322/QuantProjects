@@ -1,0 +1,29 @@
+name: hw5
+
+
+
+services:
+  questdb:
+    image: questdb/questdb:8.1.4
+    ports:
+      - 9000:9000 # REST API and Web Console
+      - 9009:9009 # InfluxDB Line Protocol
+      - 8812:8812 # Postgres Wire Protocol
+      - 9003:9003 # Healthcheck
+
+    
+    volumes:
+      - hw5_data:/var/lib
+
+  # Define any additional services here
+  # ---
+  
+
+
+  # ---
+
+
+volumes:
+  hw5_data:
+    external: true
+  
