@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WuRjb4lE+SU=",
+  "dgSpecHash": "LG/7+48yO84=",
   "success": true,
-  "projectFilePath": "/Users/calebwilliams/fm5252/MonteCarloOptionPricer/MonteCarloOptionPricer.csproj",
+  "projectFilePath": "/Users/calebwilliams/QuantProjects/MonteCarloOptionPricer/MonteCarloOptionPricer.csproj",
   "expectedPackageFiles": [
     "/Users/calebwilliams/.nuget/packages/mathnet.numerics/5.0.0/mathnet.numerics.5.0.0.nupkg.sha512"
   ],
